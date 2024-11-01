@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup
+} from 'firebase/auth';
 import { auth } from "../firebaseConfig";
 
 export const loginAPI = async (email, password) => {
@@ -6,15 +10,25 @@ export const loginAPI = async (email, password) => {
         let response = await signInWithEmailAndPassword(auth, email, password);
         return response;
     } catch (err) {
-        return err;
+        throw err;
     }
 }
 
-export const registerAPI = (email, password) => {
+export const registerAPI = async (email, password) => {
     try {
-        let response = createUserWithEmailAndPassword(auth, email, password);
+        let response = await createUserWithEmailAndPassword(auth, email, password);
         return response;
     } catch (err) {
-        return err;
+        throw err;
+    }
+}
+
+export const GoogleSignInAPI = async () => {
+    try {
+        const authProvider = new GoogleAuthProvider();
+        let res = await signInWithPopup(auth, authProvider);
+        return res;
+    } catch (err) {
+        throw err;
     }
 }
