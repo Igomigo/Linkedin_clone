@@ -19,6 +19,8 @@ export default function LoginComponent() {
 
           let res = await loginAPI(credentials.email, credentials.password);
           toast.success("Successfully signed in to Linkedin");
+          navigate("/home");
+
         } catch (err) {
             toast.error("Please check your credentials");
         }
@@ -28,6 +30,8 @@ export default function LoginComponent() {
       try {
         let response = await GoogleSignInAPI();  // Wait for the sign-in to complete
         console.log(response.user.email);
+        toast.success("Successfully signed in with Google");
+        navigate("/home");
       } catch (error) {
           console.error("Google sign-in failed:", error);
       }

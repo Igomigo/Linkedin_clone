@@ -17,6 +17,7 @@ export default function RegisterComponent() {
             }
             const res = await registerAPI(credentials.email, credentials.password);
             toast.success("User registered successfully");
+            navigate("/home");
 
         } catch (error) {
             // Check the error code from Firebase and display appropriate messages
